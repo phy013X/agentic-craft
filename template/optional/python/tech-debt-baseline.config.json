@@ -1,0 +1,10 @@
+{
+  "$comment": "棘轮技术债门禁配置（Python/通用）。pattern: name 唯一、regex 正则、extensions 限定文件、exclude 路径子串排除。基线用 --update 生成后提交。",
+  "patterns": [
+    { "name": "no-type-ignore", "regex": "#\\s*type:\\s*ignore", "extensions": [".py"] },
+    { "name": "no-noqa", "regex": "#\\s*noqa", "extensions": [".py"] },
+    { "name": "no-print-debug", "regex": "\\bprint\\s*\\(", "extensions": [".py"], "exclude": ["tests/", "test_", "__main__"] },
+    { "name": "todo-count", "regex": "\\bTODO\\b", "extensions": [".py", ".js", ".ts"] }
+  ],
+  "maxFileLines": { "extensions": [".py"], "limit": 800, "exclude": ["test_", "/tests/"] }
+}

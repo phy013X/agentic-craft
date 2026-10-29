@@ -26,3 +26,16 @@ jobs:
           test -f /tmp/ac-smoke/README.md
           test -d /tmp/ac-smoke/.claude/skills/definition-of-done
           test -d /tmp/ac-smoke/docs/adr
+
+  test-python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Python ratchet unit + e2e tests
+        run: python -m unittest discover -s template/optional/python -p 'test_*.py'

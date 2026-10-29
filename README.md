@@ -72,7 +72,8 @@ docs/
   scaling.md              # When (not) to adopt heavier machinery
   parallel-development.md # worktrees / stacked PRs / multi-agent fan-out
   with-superpowers.md     # Exact division of labor with Superpowers
-optional/node/            # The ratchet gate + lefthook config (opt-in)
+optional/node/            # Ratchet gate (Node) + lefthook config (opt-in)
+optional/python/          # Ratchet gate (Python, stdlib only)
 .github/PULL_REQUEST_TEMPLATE.md
 ```
 
@@ -97,10 +98,17 @@ Most "coding standards" are prose an agent can ignore. The ratchet is executable
   itself can't silently pass everything.
 
 ```sh
+# Node (zero-dependency)
 node optional/node/scripts/ratchet.mjs --update   # snapshot current debt
 node optional/node/scripts/ratchet.mjs           # CI/pre-push: new debt -> exit 1
 node optional/node/scripts/ratchet.mjs --prune   # remove stale baseline entries
+
+# Python (stdlib only, >=3.8)
+python optional/python/ratchet.py --update
+python optional/python/ratchet.py
 ```
+
+Both implementations share the same baseline format and ship with negative-control tests.
 
 ## Repository layout
 
