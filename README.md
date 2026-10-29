@@ -110,13 +110,31 @@ python optional/python/ratchet.py
 
 Both implementations share the same baseline format and ship with negative-control tests.
 
+## Optional: install the `/init-vibecoding` slash command
+
+A manual-only Claude Code skill (the model never auto-invokes it) wraps the
+initializer so you can run `/init-vibecoding <path>` from any project:
+
+```sh
+# after cloning this repo
+mkdir -p ~/.claude/skills
+cp -r skills/init-vibecoding ~/.claude/skills/
+export AGENTIC_CRAFT_HOME="$PWD"        # put this in your shell profile
+```
+
+The skill locates the initializer via `$AGENTIC_CRAFT_HOME` (it will ask, or
+offer to clone the repo, if unset), collects the target/options, and runs
+`scripts/init.mjs`. Restart Claude Code once after installing so it discovers
+the skill.
+
 ## Repository layout
 
 ```
-template/        # everything copied into a generated project (original content only)
-  .agents/skills/   # 8 original, model-agnostic skills
+template/         # everything copied into a generated project (original content only)
+  .agents/skills/    # 8 original, model-agnostic skills
   docs/ optional/ .github/ AGENTS.md CLAUDE.md PROJECT_README.md
-scripts/init.mjs # the cross-platform, dependency-free initializer
+scripts/init.mjs  # the cross-platform, dependency-free initializer (single source of truth)
+skills/init-vibecoding/  # optional manual slash-command wrapper for the initializer
 .github/workflows/ci.yml
 ```
 
