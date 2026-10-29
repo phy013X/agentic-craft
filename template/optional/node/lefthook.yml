@@ -1,0 +1,25 @@
+# 通用最小 git 钩子（lefthook，跨平台单二进制；也可改用 husky/simple-git-hooks）。
+# 原则：pre-commit 只跑「暂存文件、秒级、可自动修复」的检查；全量回归与平台矩阵交给 CI。
+# 安装：npx lefthook install
+
+pre-commit:
+  jobs:
+    # 零依赖、通用：拦掉空白错误/冲突标记/行尾问题。
+    - name: whitespace
+      run: git diff --cached --check
+
+    # 按你的语言取消注释并替换命令（只对暂存文件、可 --fix）：
+    # - name: lint-staged
+    #   glob: '*.{ts,tsx,js,jsx}'
+    #   run: npx oxlint --fix {staged_files}
+    #   stage_fixed: true
+
+pre-push:
+  jobs:
+    # 推送前跑一次受影响检查（替换为你的命令）：
+    # - name: typecheck
+    #   run: pnpm run typecheck
+
+    # 启用棘轮技术债门禁后取消注释（见 optional/node/README.md）：
+    # - name: tech-debt-ratchet
+    #   run: node scripts/ratchet.mjs

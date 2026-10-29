@@ -1,0 +1,28 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Ratchet unit tests
+        run: node --test template/optional/node/scripts/ratchet.test.mjs
+      - name: Init smoke (template-only, no network)
+        run: |
+          set -e
+          node scripts/init.mjs /tmp/ac-smoke --no-superpowers --no-git
+          test -f /tmp/ac-smoke/AGENTS.md
+          test -f /tmp/ac-smoke/README.md
+          test -d /tmp/ac-smoke/.claude/skills/definition-of-done
+          test -d /tmp/ac-smoke/docs/adr

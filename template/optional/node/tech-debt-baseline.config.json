@@ -1,0 +1,10 @@
+{
+  "$comment": "棘轮技术债门禁配置。每条 pattern：name 唯一、regex 为正则字符串、extensions 限定文件、exclude 为路径子串排除。把 config 与本文件放仓库根，baseline 用 --update 生成后提交。",
+  "patterns": [
+    { "name": "no-explicit-any", "regex": ":\\s*any\\b", "extensions": [".ts", ".tsx"], "exclude": [".d.ts"] },
+    { "name": "no-ts-ignore", "regex": "@ts-ignore|@ts-nocheck", "extensions": [".ts", ".tsx"] },
+    { "name": "no-eslint-disable", "regex": "eslint-disable", "extensions": [".ts", ".tsx", ".js", ".jsx"] },
+    { "name": "todo-count", "regex": "\\bTODO\\b", "extensions": [".ts", ".tsx", ".js", ".jsx"] }
+  ],
+  "maxFileLines": { "extensions": [".ts", ".tsx"], "limit": 800, "exclude": [".test.", ".spec."] }
+}

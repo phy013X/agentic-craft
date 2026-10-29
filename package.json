@@ -1,0 +1,20 @@
+{
+  "name": "agentic-craft",
+  "version": "0.1.0",
+  "description": "Hard guardrails and durable memory for agentic/vibe coding — works standalone or alongside Superpowers.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "agentic-craft": "scripts/init.mjs"
+  },
+  "scripts": {
+    "test": "node --test template/optional/node/scripts/ratchet.test.mjs"
+  },
+  "files": [
+    "template",
+    "scripts"
+  ]
+}
